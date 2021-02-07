@@ -97,7 +97,7 @@ def change_dict_values(d, prefix, version):
                         # "TS29571_CommonData.yaml#/components/schemas/GroupId" ->GroupId.json
                         # new_v = v#v.replace("#/components/schemas/", "/") + ".json"
                         spList = v.split('/')
-                        new_v = "#/"spList[len(spList)-1]+".json"
+                        new_v = "#/"+spList[len(spList)-1]+".json"
             else:
                 new_v = v
             new[k] = new_v
