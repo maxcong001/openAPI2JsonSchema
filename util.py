@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from log import info, debug, error
 
+
 def iteritems(d):
     if hasattr(dict, "iteritems"):
         return d.iteritems()
@@ -34,7 +35,8 @@ def replace_int_or_string(data):
             new_v = v
             if isinstance(v, dict):
                 if "format" in v and v["format"] == "int-or-string":
-                    new_v = {"oneOf": [{"type": "string"}, {"type": "integer"}]}
+                    new_v = {
+                        "oneOf": [{"type": "string"}, {"type": "integer"}]}
                 else:
                     new_v = replace_int_or_string(v)
             elif isinstance(v, list):
@@ -92,8 +94,10 @@ def change_dict_values(d, prefix, version):
                         new_v = "%s%s" % (prefix, v)
                         print("maxxxxxxxxxx")
                     else:
-                        print("teststst")
-                        new_v = v.replace("#/components/schemas/", "/") + ".json"
+                        # "TS29571_CommonData.yaml#/components/schemas/GroupId" ->GroupId.json
+                        # new_v = v#v.replace("#/components/schemas/", "/") + ".json"
+                        spList = v.split('/')
+                        new_v = "#/"spList[len(spList)-1]+".json"
             else:
                 new_v = v
             new[k] = new_v
